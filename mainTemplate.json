@@ -53,7 +53,7 @@
                     "uri": "[uri(variables('_deploymentLink'), 'linkedtemplates/importBlobInitialContents.json')]",
                     "contentVersion": "1.0.0.0"
                 },
-                "parameters": {
+                "parametersLink": {
                     "uri": "[uri(variables('_deploymentLink'), 'linkedtemplates/importBlobInitialContents.parameters.json')]",
                     "contentVersion": "1.0.0.0"
                 }
