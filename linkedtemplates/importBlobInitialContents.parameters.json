@@ -6,7 +6,7 @@
             "value": "/subscriptions/5dabfdee-3f0b-46ea-a947-16f33babf7c4/resourcegroups/DeploymentScriptsTest/providers/Microsoft.ManagedIdentity/userAssignedIdentities/UAI1"
         },
         "location": {
-            "value": "centralus"
+            "value": "japaneast"
         }
     }
 }
