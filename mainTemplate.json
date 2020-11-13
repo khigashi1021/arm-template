@@ -31,8 +31,9 @@
                     "uri": "[uri(variables('_deploymentLink'), 'linkedtemplates/createUserAssignedIdentities.json')]",
                     "contentVersion": "1.0.0.0"
                 },
-                "parameters": {
-                    "location": { "value": "[parameters('location')]" }
+                "parametersLink": {
+                    "uri": "[uri(variables('_deploymentLink'), 'linkedtemplates/createUserAssignedIdentities.parameters.json')]",
+                    "contentVersion": "1.0.0.0"
                 }
             }
         },
@@ -53,8 +54,8 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "location": { "value": "[parameters('location')]" },
-                    "userAssignedIdentitiesResourceId": { "value": "[reference(variables('uidDeploymentName')).outputs.resourceID.value]" }
+                    "uri": "[uri(variables('_deploymentLink'), 'linkedtemplates/importBlobInitialContents.parameters.json')]",
+                    "contentVersion": "1.0.0.0"
                 }
             }
         }
