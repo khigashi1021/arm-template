@@ -12,9 +12,8 @@
 
     },
     "variables": {
-        "uidDeploymentName": "uidDeploymentTemplate",
         "initialBlobDataDeploymentName": "initialBlobDataDeploymentTemplate",
-        "_deploymentLink": "[deployment().properties.templateLink.uri]"
+        "_deploymentLink": "[deployment().properties.templateLink.uri]",
         "userAssignedIdentitiesName": "[concat('uid-', uniqueString(resourceGroup().id))]"
     },
     "resources": [
