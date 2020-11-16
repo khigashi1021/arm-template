@@ -15,15 +15,13 @@
         "uidDeploymentName": "uidDeploymentTemplate",
         "initialBlobDataDeploymentName": "initialBlobDataDeploymentTemplate",
         "_deploymentLink": "[deployment().properties.templateLink.uri]"
+        "userAssignedIdentitiesName": "[concat('uid-', uniqueString(resourceGroup().id))]"
     },
     "resources": [
         {
             "apiVersion": "2019-10-01",
             "name": "[variables('initialBlobDataDeploymentName')]",
             "type": "Microsoft.Resources/deployments",
-            "dependsOn": [
-                "[variables('uidDeploymentName')]"
-            ],
             "properties": {
                 "mode": "Incremental",
                 "expressionEvaluationOptions": {
@@ -35,7 +33,7 @@
                 },
                 "parameters": {
                     "location": { "value": "[parameters('location')]" },
-                    "userAssignedIdentitiesResourceId": { "value": "[reference(variables('uidDeploymentName')).outputs.resourceID.value]" }
+                    "userAssignedIdentitiesResourceId": { "value": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('userAssignedIdentitiesName'))]" }
                 }
             }
         }
