@@ -19,7 +19,7 @@
     "resources": [
         {
             "apiVersion": "2019-10-01",
-            "name": "[variables('initialBlobDataDeploymentName')]"
+            "name": "[variables('initialBlobDataDeploymentName')]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
