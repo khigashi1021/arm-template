@@ -12,15 +12,37 @@
 
     },
     "variables": {
+        "uidDeploymentName": "uidDeploymentTemplate",
         "initialBlobDataDeploymentName": "initialBlobDataDeploymentTemplate",
-        "_deploymentLink": "[deployment().properties.templateLink.uri]",
-        "userAssignedIdentitiesName": "[concat('uid-', uniqueString(resourceGroup().id))]"
+        "_deploymentLink": "[deployment().properties.templateLink.uri]"
     },
     "resources": [
+        {
+        
+            "apiVersion": "2019-10-01",
+            "name": "[variables('uidDeploymentName')]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "expressionEvaluationOptions": {
+                    "scope": "outer"
+                },
+                "templateLink": {
+                    "uri": "[uri(variables('_deploymentLink'), 'linkedtemplates/createUserAssignedIdentities.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": { "value": "[parameters('location')]" }
+                }
+            }
+        },
         {
             "apiVersion": "2019-10-01",
             "name": "[variables('initialBlobDataDeploymentName')]",
             "type": "Microsoft.Resources/deployments",
+            "dependsOn": [
+                "[variables('uidDeploymentName')]"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "expressionEvaluationOptions": {
@@ -32,7 +54,7 @@
                 },
                 "parameters": {
                     "location": { "value": "[parameters('location')]" },
-                    "userAssignedIdentitiesResourceId": { "value": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('userAssignedIdentitiesName'))]" }
+                    "userAssignedIdentitiesResourceId": { "value": "[reference(variables('uidDeploymentName')).outputs.resourceID.value]" }
                 }
             }
         }
